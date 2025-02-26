@@ -1,0 +1,110 @@
+:root {
+    --primary-color: #e00;
+    --background-color: #181a19;
+    --text-color: #f6e2e0;
+    --secondary-text-color: #56524e;
+    --button-background: #f6e2e0;
+    --button-text-color: #181a19;
+    --hover-background: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+body {
+    background: linear-gradient(90deg, #525355, #0f3141);
+    background-color: var(--background-color);
+    font-family: "Work Sans", Arial, Helvetica, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30vh;
+    height: 70vh;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    width: 500px;
+    height: 40px;
+    border-radius: 15px;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.delete-btn,
+.submit-btn,
+.clear-btn {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.delete-btn {
+    border-radius: 0 15px 15px 0;
+    height: 100%;
+    width: 50px;
+}
+
+.submit-btn {
+    border-radius: 0 15px 15px 0;
+    height: 100%;
+    width: 100px;
+}
+
+.clear-btn {
+    border-radius: 15px;
+    margin-top: 2rem;
+    width: 100px;
+    height: 40px;
+}
+
+button:hover {
+    background-color: var(--hover-background);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#todo-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 1rem 0;
+}
+
+#todo-form input {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    width: 500px;
+    height: 40px;
+    border-radius: 15px 0 0 15px;
+    padding-left: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+.error {
+    height: 1rem;
+    color: red;
+    margin-bottom: 1rem;
+    font-size: 14px;
+}
