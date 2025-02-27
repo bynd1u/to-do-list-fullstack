@@ -1,6 +1,7 @@
 import data from '../data.js';
 import dom from '../dom.js';
 import createItem from '../components/createTodo.js';
+import addItemReq from '../api/todo.js';
 
 const addItemHandler = () => {
     const text = dom.input.value;
@@ -14,6 +15,8 @@ const addItemHandler = () => {
         dom.itemsList.appendChild(itemDom);
         dom.input.value = '';
         dom.error.textContent = '';
+
+        addItemReq(text, newItem.id);
     } else {
         dom.error.textContent = 'Please enter a todo item.';
     }

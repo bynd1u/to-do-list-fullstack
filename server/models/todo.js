@@ -9,6 +9,10 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    id: {
+        type: String,
+        require: true
+    }
     // userId: {
     //     type: String,
     //     ref: 'User',

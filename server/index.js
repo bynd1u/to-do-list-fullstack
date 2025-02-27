@@ -17,6 +17,7 @@ const PATH = dirname(__filename);
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 //app.use(express.static(path.join(PATH, '..', 'client')));
 
@@ -25,6 +26,7 @@ connectToDB();
 app.post('/', async (req, res) => {
   let newTodo = new Todo({
     text: req.body.text,
+    id: req.body.id
 })
   
   await newTodo.save();
