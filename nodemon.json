@@ -1,0 +1,15 @@
+{
+    "restartable": "rs",
+    "ignore": ["node_modules", "dist"],
+    "verbose": true,
+    "env": {
+      "PORT": "5004"
+    },
+    "execMap": {
+      "js": "node"
+    },
+    "events": {
+      "restart": "rm -f '5004;"
+    }
+  }
+  
