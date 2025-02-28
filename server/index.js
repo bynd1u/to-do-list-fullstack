@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import connectToDB from './config/db.js';
 import Todo from './models/todo.js'
 import bodyParser from 'body-parser';
+import { create } from 'domain';
 
 
 dotenv.config();
@@ -29,16 +30,29 @@ app.post('/', async (req, res) => {
     id: req.body.id
 })
   
-  await newTodo.save();
+  let createdTodo = await newTodo.save();
   
-  res.send(`item with text "${req.body.text}" added to database`);
+  res.json(createdTodo);
 })
+
+app.get('/', async (req, res) => {
+  let todos = await Todo.find();
+  res.json(todos);
+}
+)
 
 app.delete('/', async (req, res) => {
   await Todo.deleteOne({_id: req.body._id});
-
+  console.log("item was deleted from the database");
   res.send(`item was deleted from the database`);
 });
+
+app.delete('/all', async (req, res) => {
+  await Todo.deleteMany();
+  console.log("all items were deleted from the database");
+  res.send(`all items were deleted from the database`);
+})
+
 app.get('/', (req, res) => {
   res.send("Hi weirdo");
 })

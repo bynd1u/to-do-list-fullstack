@@ -12,7 +12,9 @@
 
 const createItem = (item) => {
     const itemDom = document.createElement("div");
-    itemDom.id = item.id;
+    console.log(item._id);
+    console.log(item.text);
+    itemDom.id = item._id;
     itemDom.classList.add("item");
 
     const itemText = document.createElement("span");
@@ -24,7 +26,7 @@ const createItem = (item) => {
     deleteBtn.innerText = "Delete";
 
     deleteBtn.addEventListener("click", () => {
-        deleteItemHandler(item.id);
+        deleteItemHandler(item._id);
     });
 
     itemDom.appendChild(itemText);
