@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import connectToDB from './config/db.js';
 import Todo from './models/todo.js'
 import User from './models/user.js';
+import cookieParser from 'cookie-parser';
 
 
 dotenv.config();
@@ -18,12 +19,33 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-app.use(cors());
+app.use(
+  cors({
+      origin: [
+          'http://127.0.0.1:5500'
+      ],
+      credentials: true
+  })
+);
+
 
 //app.use(express.static(path.join(PATH, '..', 'client')));
 
 connectToDB();
+
+app.use((req, res, next) => {
+  const { token } = req.cookies;
+  
+  if (!token) {
+    return res.status(401).json({
+      title: 'Unauthorized',
+      message: 'You are not authorized to access this page'
+    });
+  }
+  next();
+});
 
 app.post('/', async (req, res) => {
   let newTodo = new Todo({
@@ -66,6 +88,8 @@ app.post('/register', async (req, res) => {
 
   res.send(newUser);
 });
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}!`);

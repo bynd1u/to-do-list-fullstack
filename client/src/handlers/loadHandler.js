@@ -6,8 +6,16 @@ import { getAllItemsReq } from "../api/todo.js";
 
 
 const loadHandler = async () => {
-    const data = await getAllItemsReq();
-    data.forEach(item => {
+
+    const res = await getAllItemsReq();
+    
+    // status === 200
+    // if status 401 // redirect to login page
+
+    // if status 403 // show error message
+
+
+    res.forEach(item => {
         const itemDom = createItem(item);
         dom.itemsList.append(itemDom);
     })

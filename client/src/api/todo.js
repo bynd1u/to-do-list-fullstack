@@ -25,7 +25,9 @@ const addItemReq = async (text) => {
 
 const getAllItemsReq = async () => {
     try {
-        const res = await fetch("http://localhost:5004/");
+        const res = await fetch("http://localhost:5004/", {
+            credentials: "include"
+        });
         const data = await res.json();
         return data;
     }
