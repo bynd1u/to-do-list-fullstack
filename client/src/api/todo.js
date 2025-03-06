@@ -1,4 +1,6 @@
 
+const API_URL = 'http://localhost:5004';
+
 const addItemReq = async (text) => {
     try {
         const res = await fetch("http://localhost:5004/", {
@@ -28,6 +30,10 @@ const getAllItemsReq = async () => {
         const res = await fetch("http://localhost:5004/", {
             credentials: "include"
         });
+
+        if (res.status === 401) {
+            window.location.href = "http://127.0.0.1:5500/client/login.html";
+        }
         const data = await res.json();
         return data;
     }
@@ -68,4 +74,28 @@ const deleteAllItemsReq = async () => {
         
     }
 }
-export { addItemReq, getAllItemsReq, deleteItemReq, deleteAllItemsReq };
+
+    const login = async (email, password) => {
+        try {
+          const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password }),
+            credentials: 'include'
+          });
+          console.log('response:', response);
+          if (!response.ok) {
+            throw new Error('Login failed');
+          }
+          
+          return await response.json();
+        } catch (error) {
+          console.error('Error logging in:', error);
+          throw error;
+        }
+      };
+      
+
+export { addItemReq, getAllItemsReq, deleteItemReq, deleteAllItemsReq, login };

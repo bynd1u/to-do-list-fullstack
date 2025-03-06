@@ -7,6 +7,7 @@ import connectToDB from './config/db.js';
 import Todo from './models/todo.js'
 import User from './models/user.js';
 import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 
 
 dotenv.config();
@@ -35,17 +36,19 @@ app.use(
 
 connectToDB();
 
-app.use((req, res, next) => {
+const verifyToken = (req, res, next) => {
   const { token } = req.cookies;
-  
+  console.log('token: ' + token);
   if (!token) {
     return res.status(401).json({
       title: 'Unauthorized',
       message: 'You are not authorized to access this page'
     });
   }
+  console.log('token has been verified')
   next();
-});
+}
+
 
 app.post('/', async (req, res) => {
   let newTodo = new Todo({
@@ -58,8 +61,9 @@ app.post('/', async (req, res) => {
   res.json(createdTodo);
 })
 
-app.get('/', async (req, res) => {
+app.get('/', verifyToken, async (req, res) => {
   let todos = await Todo.find();
+  console.log(req.cookies);
   res.json(todos);
 }
 )
@@ -82,12 +86,24 @@ app.get('/', (req, res) => {
 
 app.post('/register', async (req, res) => {
   //responde with body
+  
   const newUser = new User(req.body);
 
   await newUser.save();
 
   res.send(newUser);
 });
+
+app.post('/login', async (req, res) => {
+  const {email, password} = req.body;
+
+    res.cookie('token', 'token-test');
+    console.log('cookie has been set');
+    res.status(200).json({
+      "message": "success"
+    });
+});
+  
 
 
 
